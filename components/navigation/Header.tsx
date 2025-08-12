@@ -72,7 +72,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white/95 backdrop-blur-md shadow-lg border-b sticky top-0 z-50">
+    <header className="bg-white/95 backdrop-blur-md shadow-lg sticky top-0 z-50">
       {/* Top Bar */}
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,12 +113,12 @@ const Header = () => {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
             {navigationItems.map(item => (
               <div key={item.name} className="relative group">
                 <a
                   href={item.href}
-                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors flex items-center"
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 active:bg-blue-100"
                 >
                   {item.name}
                   {item.hasDropdown && (
@@ -162,11 +162,11 @@ const Header = () => {
           </nav>
 
           {/* Search Bar */}
-          <div className="flex-1 max-w-lg mx-8 hidden md:block">
+          <div className="flex-1 max-w-lg mx-4 sm:mx-6 lg:mx-8 hidden md:block">
             <form onSubmit={handleSearch} className="relative">
               <Input
                 placeholder="Search for products..."
-                leftIcon={<FiSearch className="w-4 h-4" />}
+                leftIcon={<FiSearch className="w-4 h-4 sm:w-5 sm:h-5" />}
                 className={`w-full transition-all duration-300 ${
                   isSearchFocused ? 'ring-2 ring-blue-500 shadow-lg' : ''
                 }`}

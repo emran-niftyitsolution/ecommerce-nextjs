@@ -59,24 +59,24 @@ const ProductCard = ({
             )}
 
             {/* Action Buttons */}
-            <div className="absolute top-3 right-3 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute top-3 right-3 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 sm:group-hover:opacity-100 transition-opacity duration-300">
               <button
                 onClick={e => {
                   e.stopPropagation();
                   onWishlist();
                 }}
-                className="w-8 h-8 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-red-50 hover:text-red-500 transition-all duration-200"
+                className="w-8 h-8 sm:w-12 sm:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-red-50 hover:text-red-500 transition-all duration-200 active:scale-95"
               >
-                <FiHeart className="w-4 h-4 sm:w-5 sm:h-5" />
+                <FiHeart className="w-4 h-4 sm:w-6 sm:h-6" />
               </button>
               <button
                 onClick={e => {
                   e.stopPropagation();
                   onAddToCart(product);
                 }}
-                className="w-8 h-8 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                className="w-8 h-8 sm:w-12 sm:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 active:scale-95"
               >
-                <FiShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
+                <FiShoppingCart className="w-4 h-4 sm:w-6 sm:h-6" />
               </button>
             </div>
 
