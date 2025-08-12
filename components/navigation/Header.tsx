@@ -167,7 +167,7 @@ const Header = () => {
               <Input
                 placeholder="Search for products..."
                 leftIcon={<FiSearch className="w-4 h-4 sm:w-5 sm:h-5" />}
-                className={`w-full transition-all duration-300 ${
+                className={`w-full transition-all duration-300 border-gray-300 ${
                   isSearchFocused ? 'ring-2 ring-blue-500 shadow-lg' : ''
                 }`}
                 onFocus={() => setIsSearchFocused(true)}
