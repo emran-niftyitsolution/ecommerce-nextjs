@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/Input';
 import { useAppDispatch, useAppSelector } from '@/lib/store';
 import { openCart } from '@/lib/store/slices/cartSlice';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   FiChevronDown,
   FiHeart,
@@ -71,6 +71,37 @@ const Header = () => {
     toast.info(`${action} functionality coming soon!`);
   };
 
+  // Keyboard shortcuts for desktop
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ctrl+K for quick search
+      if (e.ctrlKey && e.key === 'k') {
+        e.preventDefault();
+        const searchInput = document.querySelector(
+          'input[placeholder*="Search"]'
+        ) as HTMLInputElement;
+        if (searchInput) {
+          searchInput.focus();
+        }
+      }
+
+      // Ctrl+Shift+C for cart
+      if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        handleCartClick();
+      }
+
+      // Ctrl+Shift+W for wishlist
+      if (e.ctrlKey && e.shiftKey && e.key === 'W') {
+        e.preventDefault();
+        handleWishlistClick();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <header className="bg-white/95 backdrop-blur-md shadow-lg sticky top-0 z-50">
       {/* Top Bar */}
@@ -118,7 +149,7 @@ const Header = () => {
               <div key={item.name} className="relative group">
                 <a
                   href={item.href}
-                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 active:bg-blue-100"
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 active:bg-blue-100 lg:hover:scale-105 lg:hover:shadow-md"
                 >
                   {item.name}
                   {item.hasDropdown && (
@@ -165,9 +196,9 @@ const Header = () => {
           <div className="flex-1 max-w-lg mx-4 sm:mx-6 lg:mx-8 hidden md:block">
             <form onSubmit={handleSearch} className="relative">
               <Input
-                placeholder="Search for products..."
+                placeholder="Search for products... (Press Ctrl+K for quick search)"
                 leftIcon={<FiSearch className="w-4 h-4 sm:w-5 sm:h-5" />}
-                className={`w-full transition-all duration-300 border-gray-300 ${
+                className={`w-full transition-all duration-300 border-gray-300 lg:hover:border-blue-400 ${
                   isSearchFocused ? 'ring-2 ring-blue-500 shadow-lg' : ''
                 }`}
                 onFocus={() => setIsSearchFocused(true)}
