@@ -135,23 +135,6 @@ const ProductCard = ({
                 )}
               </div>
             </div>
-
-            {/* Description */}
-            <p className="text-gray-600 mb-4 sm:mb-6 leading-relaxed text-xs sm:text-sm mt-2 sm:mt-3 line-clamp-2">
-              Experience premium quality with this trending product. Features
-              advanced technology and sleek design.
-            </p>
-
-            {/* Add to Cart Button */}
-            <button
-              onClick={e => {
-                e.stopPropagation();
-                onAddToCart(product);
-              }}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 sm:py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-            >
-              Add to Cart
-            </button>
           </div>
         </div>
       </motion.div>
