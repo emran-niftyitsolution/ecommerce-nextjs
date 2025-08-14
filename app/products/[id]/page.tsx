@@ -3,10 +3,10 @@
 import Footer from '@/components/navigation/Footer';
 import Header from '@/components/navigation/Header';
 import { Button } from '@/components/ui/Button';
-import { products } from '@/data/products';
 import { useAppDispatch } from '@/lib/store';
 import { addToCart } from '@/lib/store/slices/cartSlice';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import {
   FiCheck,
@@ -22,6 +22,83 @@ import {
   FiZoomIn,
 } from 'react-icons/fi';
 import { toast } from 'react-toastify';
+// Mock products data - same as products page
+const mockProducts = [
+  {
+    id: 1,
+    name: 'Wireless Bluetooth Headphones',
+    price: 89.99,
+    originalPrice: 129.99,
+    image:
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop',
+    rating: 4.5,
+    reviews: 128,
+    badge: 'Best Seller',
+    category: 'Electronics',
+    brand: 'AudioTech',
+  },
+  {
+    id: 2,
+    name: 'Smart Fitness Watch',
+    price: 199.99,
+    originalPrice: 249.99,
+    image:
+      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop',
+    rating: 4.3,
+    reviews: 89,
+    badge: 'New',
+    category: 'Electronics',
+    brand: 'FitTech',
+  },
+  {
+    id: 3,
+    name: 'Premium Coffee Maker',
+    price: 149.99,
+    image:
+      'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=400&h=400&fit=crop',
+    rating: 4.7,
+    reviews: 256,
+    badge: 'Top Rated',
+    category: 'Home & Garden',
+    brand: 'BrewMaster',
+  },
+  {
+    id: 4,
+    name: 'Organic Cotton T-Shirt',
+    price: 29.99,
+    originalPrice: 39.99,
+    image:
+      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop',
+    rating: 4.2,
+    reviews: 67,
+    category: 'Fashion',
+    brand: 'EcoWear',
+  },
+  {
+    id: 5,
+    name: 'Wireless Gaming Mouse',
+    price: 79.99,
+    image:
+      'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop',
+    rating: 4.6,
+    reviews: 142,
+    badge: 'Gaming',
+    category: 'Electronics',
+    brand: 'GameTech',
+  },
+  {
+    id: 6,
+    name: 'Yoga Mat Premium',
+    price: 49.99,
+    originalPrice: 69.99,
+    image:
+      'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop',
+    rating: 4.4,
+    reviews: 93,
+    category: 'Sports',
+    brand: 'FitLife',
+  },
+];
 
 interface ProductDetailPageProps {
   params: {
@@ -30,6 +107,7 @@ interface ProductDetailPageProps {
 }
 
 const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -37,7 +115,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   const [selectedColor, setSelectedColor] = useState('');
 
   // Find the product by ID
-  const product = products.find(p => p.id.toString() === params.id);
+  const product = mockProducts.find(p => p.id.toString() === params.id);
 
   if (!product) {
     return (
@@ -52,7 +130,9 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
             <p className="text-gray-600 mb-4">
               The product you're looking for doesn't exist.
             </p>
-            <Button href="/products">Back to Products</Button>
+            <Button onClick={() => router.push('/products')}>
+              Back to Products
+            </Button>
           </div>
         </div>
         <Footer />
@@ -119,7 +199,9 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
     }
   };
 
-  const relatedProducts = products.filter(p => p.id !== product.id).slice(0, 4);
+  const relatedProducts = mockProducts
+    .filter(p => p.id !== product.id)
+    .slice(0, 4);
 
   return (
     <div className="min-h-screen bg-gray-50">

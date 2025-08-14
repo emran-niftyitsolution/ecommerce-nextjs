@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { FiGrid } from 'react-icons/fi';
 
 const categories = [
@@ -11,40 +12,57 @@ const categories = [
     icon: '📱',
     count: '2.5k+',
     color: 'bg-blue-50 border-blue-200',
+    href: '/category/electronics',
   },
   {
     name: 'Fashion',
     icon: '👕',
     count: '1.8k+',
     color: 'bg-pink-50 border-pink-200',
+    href: '/category/fashion',
   },
   {
     name: 'Home & Garden',
     icon: '🏠',
     count: '3.2k+',
     color: 'bg-green-50 border-green-200',
+    href: '/category/home-garden',
   },
   {
     name: 'Sports',
     icon: '⚽',
     count: '950+',
     color: 'bg-orange-50 border-orange-200',
+    href: '/category/sports',
   },
   {
     name: 'Books',
     icon: '📚',
     count: '1.2k+',
     color: 'bg-purple-50 border-purple-200',
+    href: '/category/books',
   },
   {
     name: 'Beauty',
     icon: '💄',
     count: '750+',
     color: 'bg-red-50 border-red-200',
+    href: '/category/beauty',
   },
 ];
 
 const CategoriesSection = () => {
+  const router = useRouter();
+
+  const handleCategoryClick = (href: string) => {
+    router.push(href);
+  };
+
+  const handleExploreClick = (e: React.MouseEvent, href: string) => {
+    e.stopPropagation();
+    router.push(href);
+  };
+
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -75,6 +93,7 @@ const CategoriesSection = () => {
               whileHover={{ y: -4, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="group cursor-pointer"
+              onClick={() => handleCategoryClick(category.href)}
             >
               <Card
                 hover
@@ -91,10 +110,11 @@ const CategoriesSection = () => {
                   {category.count} products
                 </p>
                 <div className="mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
+                  <Button
+                    variant="outline"
+                    size="sm"
                     className="w-full text-xs sm:text-sm py-1.5 sm:py-2"
+                    onClick={e => handleExploreClick(e, category.href)}
                   >
                     Explore
                   </Button>

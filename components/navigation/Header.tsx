@@ -12,6 +12,8 @@ import { Input } from '@/components/ui/Input';
 import { useAppDispatch, useAppSelector } from '@/lib/store';
 import { openCart } from '@/lib/store/slices/cartSlice';
 import { AnimatePresence, motion } from 'framer-motion';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import {
   FiChevronDown,
@@ -31,6 +33,7 @@ import {
 import { toast } from 'react-toastify';
 
 const Header = () => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const { totalItems } = useAppSelector(state => state.cart);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -56,7 +59,16 @@ const Header = () => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.info('Search functionality coming soon!');
+    const searchInput = document.querySelector(
+      'input[placeholder*="Search"]'
+    ) as HTMLInputElement;
+    if (searchInput && searchInput.value.trim()) {
+      router.push(
+        `/products?search=${encodeURIComponent(searchInput.value.trim())}`
+      );
+    } else {
+      toast.info('Please enter a search term');
+    }
   };
 
   const handleCartClick = () => {
@@ -64,11 +76,34 @@ const Header = () => {
   };
 
   const handleWishlistClick = () => {
-    toast.info('Wishlist functionality coming soon!');
+    router.push('/wishlist');
   };
 
   const handleUserAction = (action: string) => {
-    toast.info(`${action} functionality coming soon!`);
+    switch (action) {
+      case 'profile':
+        router.push('/auth/login');
+        break;
+      case 'orders':
+        router.push('/orders');
+        break;
+      case 'settings':
+        router.push('/settings');
+        break;
+      case 'help':
+        router.push('/help');
+        break;
+      case 'logout':
+        toast.info('Logout functionality coming soon!');
+        break;
+      default:
+        toast.info(`${action} functionality coming soon!`);
+    }
+  };
+
+  const handleCategoryClick = (href: string) => {
+    router.push(href);
+    setIsMobileMenuOpen(false);
   };
 
   // Keyboard shortcuts for desktop
@@ -147,7 +182,7 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
             {navigationItems.map(item => (
               <div key={item.name} className="relative group">
-                <a
+                <Link
                   href={item.href}
                   className="text-gray-700 hover:text-blue-600 font-medium transition-colors flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 active:bg-blue-100 lg:hover:scale-105 lg:hover:shadow-md"
                 >
@@ -155,7 +190,7 @@ const Header = () => {
                   {item.hasDropdown && (
                     <FiChevronDown className="ml-1 w-4 h-4 group-hover:rotate-180 transition-transform" />
                   )}
-                </a>
+                </Link>
 
                 {/* Categories Dropdown */}
                 {item.hasDropdown && (
@@ -166,7 +201,7 @@ const Header = () => {
                       </h3>
                       <div className="grid grid-cols-2 gap-4">
                         {categories.map(category => (
-                          <a
+                          <Link
                             key={category.name}
                             href={category.href}
                             className="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors group"
@@ -182,7 +217,7 @@ const Header = () => {
                                 Explore products
                               </div>
                             </div>
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -289,14 +324,14 @@ const Header = () => {
 
                 {/* Menu Items */}
                 <DropdownMenuItem
-                  onClick={() => handleUserAction('Sign In')}
+                  onClick={() => handleUserAction('profile')}
                   className="flex items-center"
                 >
                   <FiUser className="w-4 h-4 mr-2" />
                   Sign In
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => handleUserAction('Create Account')}
+                  onClick={() => handleUserAction('profile')}
                   className="flex items-center"
                 >
                   <FiUser className="w-4 h-4 mr-2" />
@@ -306,14 +341,14 @@ const Header = () => {
                 <DropdownMenuSeparator />
 
                 <DropdownMenuItem
-                  onClick={() => handleUserAction('Settings')}
+                  onClick={() => handleUserAction('settings')}
                   className="flex items-center"
                 >
                   <FiSettings className="w-4 h-4 mr-2" />
                   Settings
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => handleUserAction('Help & Support')}
+                  onClick={() => handleUserAction('help')}
                   className="flex items-center"
                 >
                   <FiHelpCircle className="w-4 h-4 mr-2" />
@@ -323,7 +358,7 @@ const Header = () => {
                 <DropdownMenuSeparator />
 
                 <DropdownMenuItem
-                  onClick={() => handleUserAction('Logout')}
+                  onClick={() => handleUserAction('logout')}
                   className="flex items-center text-red-600 hover:text-red-700"
                 >
                   <FiLogOut className="w-4 h-4 mr-2" />
@@ -371,13 +406,13 @@ const Header = () => {
               {/* Mobile Navigation */}
               <nav className="space-y-2">
                 {navigationItems.map(item => (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.href}
                     className="block py-3 px-4 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </nav>
 
@@ -388,7 +423,7 @@ const Header = () => {
                 </h3>
                 <div className="grid grid-cols-2 gap-2">
                   {categories.map(category => (
-                    <a
+                    <Link
                       key={category.name}
                       href={category.href}
                       className="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors"
@@ -397,7 +432,7 @@ const Header = () => {
                       <span className="text-sm font-medium text-gray-900">
                         {category.name}
                       </span>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -419,7 +454,7 @@ const Header = () => {
                   Cart ({totalItems})
                 </button>
                 <button
-                  onClick={() => handleUserAction('Sign In')}
+                  onClick={() => handleUserAction('profile')}
                   className="w-full flex items-center justify-center py-3 px-4 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
                 >
                   <FiUser className="w-5 h-5 mr-2" />

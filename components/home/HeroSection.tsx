@@ -1,9 +1,21 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { FiArrowRight, FiPlay } from 'react-icons/fi';
 
 const HeroSection = () => {
+  const router = useRouter();
+
+  const handleShopNow = () => {
+    router.push('/products');
+  };
+
+  const handleWatchDemo = () => {
+    // This could open a modal or navigate to a demo page
+    window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Background Elements */}
@@ -67,14 +79,20 @@ const HeroSection = () => {
               transition={{ delay: 0.5 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <button className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 active:scale-95">
+              <button
+                onClick={handleShopNow}
+                className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 active:scale-95"
+              >
                 <span className="flex items-center justify-center">
                   Shop Now
                   <FiArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                 </span>
               </button>
 
-              <button className="group bg-white/80 backdrop-blur-sm text-gray-700 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold text-base sm:text-lg border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:bg-white active:scale-95">
+              <button
+                onClick={handleWatchDemo}
+                className="group bg-white/80 backdrop-blur-sm text-gray-700 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold text-base sm:text-lg border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:bg-white active:scale-95"
+              >
                 <span className="flex items-center justify-center">
                   <FiPlay className="mr-2 group-hover:scale-110 transition-transform duration-300" />
                   Watch Demo

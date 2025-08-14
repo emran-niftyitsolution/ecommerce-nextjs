@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
-import { FiChevronRight, FiFolder, FiFolderOpen } from 'react-icons/fi';
+import { FiChevronRight, FiFolder } from 'react-icons/fi';
 
 interface Category {
   id: string;
@@ -73,11 +73,9 @@ const CategoryFilter = ({
 
             <div className="flex items-center space-x-2">
               {hasChildren ? (
-                expanded ? (
-                  <FiFolderOpen className="w-4 h-4 text-blue-500" />
-                ) : (
-                  <FiFolder className="w-4 h-4 text-gray-400" />
-                )
+                <FiFolder
+                  className={`w-4 h-4 ${expanded ? 'text-blue-500' : 'text-gray-400'}`}
+                />
               ) : (
                 <div className="w-4 h-4" />
               )}

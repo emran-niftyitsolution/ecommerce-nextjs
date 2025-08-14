@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { FiHeart, FiShoppingCart, FiStar } from 'react-icons/fi';
 
 interface ProductCardProps {
@@ -28,6 +29,12 @@ const ProductCard = ({
   onWishlist,
   variant = 'featured',
 }: ProductCardProps) => {
+  const router = useRouter();
+
+  const handleProductClick = () => {
+    router.push(`/products/${product.id}`);
+  };
+
   if (variant === 'trending') {
     return (
       <motion.div
@@ -37,6 +44,7 @@ const ProductCard = ({
         whileHover={{ y: -4, scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className="group cursor-pointer"
+        onClick={handleProductClick}
       >
         <div className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group-hover:border-blue-200">
           {/* Image Container */}
@@ -149,6 +157,7 @@ const ProductCard = ({
       whileHover={{ y: -4, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       className="group cursor-pointer"
+      onClick={handleProductClick}
     >
       <div className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group-hover:border-blue-200">
         {/* Image Container */}

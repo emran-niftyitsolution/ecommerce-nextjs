@@ -3,6 +3,8 @@
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   FiArrowRight,
   FiFacebook,
@@ -23,9 +25,19 @@ import {
 import { toast } from 'react-toastify';
 
 const Footer = () => {
+  const router = useRouter();
+
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success('Thank you for subscribing to our newsletter!');
+  };
+
+  const handleSocialClick = (href: string) => {
+    if (href === '#') {
+      toast.info('Social media links coming soon!');
+    } else {
+      window.open(href, '_blank');
+    }
   };
 
   const footerSections = [
@@ -242,6 +254,7 @@ const Footer = () => {
                     <a
                       key={social.name}
                       href={social.href}
+                      onClick={() => handleSocialClick(social.href)}
                       className={`w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 transition-colors ${social.color}`}
                       aria-label={social.name}
                     >
@@ -265,12 +278,12 @@ const Footer = () => {
                 <ul className="space-y-3">
                   {section.links.map(link => (
                     <li key={link.name}>
-                      <a
+                      <Link
                         href={link.href}
                         className="text-gray-400 hover:text-white transition-colors text-sm"
                       >
                         {link.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>

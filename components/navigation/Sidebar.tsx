@@ -283,7 +283,7 @@ const Sidebar = ({ isOpen, onClose, type = 'navigation' }: SidebarProps) => {
 
       {/* Apply Filters */}
       <div className="space-y-3">
-        <Button className="w-full bg-blue-600 hover:bg-blue-700">
+        <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
           Apply Filters
         </Button>
         <Button variant="outline" className="w-full">
