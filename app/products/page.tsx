@@ -27,6 +27,47 @@ import {
 } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
+// Mock categories data
+const mockCategories = [
+  {
+    id: 'electronics',
+    name: 'Electronics',
+    count: 3,
+    children: [
+      { id: 'headphones', name: 'Headphones', count: 1 },
+      { id: 'smartwatches', name: 'Smart Watches', count: 1 },
+      { id: 'gaming', name: 'Gaming', count: 1 },
+    ],
+  },
+  {
+    id: 'fashion',
+    name: 'Fashion',
+    count: 1,
+    children: [{ id: 'clothing', name: 'Clothing', count: 1 }],
+  },
+  {
+    id: 'home-garden',
+    name: 'Home & Garden',
+    count: 2,
+    children: [
+      { id: 'kitchen', name: 'Kitchen', count: 1 },
+      { id: 'fitness', name: 'Fitness', count: 1 },
+    ],
+  },
+];
+
+// Mock brands data
+const mockBrands = [
+  { id: 'audiotech', name: 'AudioTech', count: 1 },
+  { id: 'fittech', name: 'FitTech', count: 1 },
+  { id: 'brewmaster', name: 'BrewMaster', count: 1 },
+  { id: 'ecowear', name: 'EcoWear', count: 1 },
+  { id: 'gametech', name: 'GameTech', count: 1 },
+  { id: 'yogalife', name: 'YogaLife', count: 1 },
+  { id: 'techpro', name: 'TechPro', count: 1 },
+  { id: 'fashionista', name: 'Fashionista', count: 1 },
+];
+
 // Mock products data
 const mockProducts = [
   {
@@ -331,6 +372,7 @@ export default function ProductsPage() {
                 <div>
                   <h4 className="font-medium text-gray-900 mb-3">Categories</h4>
                   <CategoryFilter
+                    categories={mockCategories}
                     selectedCategories={selectedCategories}
                     onCategoryChange={setSelectedCategories}
                   />
@@ -340,6 +382,7 @@ export default function ProductsPage() {
                 <div>
                   <h4 className="font-medium text-gray-900 mb-3">Brands</h4>
                   <BrandFilter
+                    brands={mockBrands}
                     selectedBrands={selectedBrands}
                     onBrandChange={setSelectedBrands}
                   />

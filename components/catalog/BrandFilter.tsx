@@ -18,8 +18,8 @@ interface BrandFilterProps {
 }
 
 const BrandFilter = ({
-  brands,
-  selectedBrands,
+  brands = [],
+  selectedBrands = [],
   onBrandChange,
 }: BrandFilterProps) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -27,8 +27,10 @@ const BrandFilter = ({
 
   // Filter brands based on search query
   const filteredBrands = useMemo(() => {
-    return brands.filter(brand =>
-      brand.name.toLowerCase().includes(searchQuery.toLowerCase())
+    return (
+      brands?.filter(brand =>
+        brand.name.toLowerCase().includes(searchQuery.toLowerCase())
+      ) || []
     );
   }, [brands, searchQuery]);
 
@@ -41,14 +43,13 @@ const BrandFilter = ({
   };
 
   const handleSelectAll = () => {
-    const unselectedBrands = brands.filter(
-      brand => !selectedBrands.includes(brand.id)
-    );
+    const unselectedBrands =
+      brands?.filter(brand => !selectedBrands.includes(brand.id)) || [];
     unselectedBrands.forEach(brand => onBrandChange(brand.id, true));
   };
 
   const handleClearAll = () => {
-    selectedBrands.forEach(brandId => onBrandChange(brandId, false));
+    selectedBrands?.forEach(brandId => onBrandChange(brandId, false));
   };
 
   return (
@@ -98,7 +99,7 @@ const BrandFilter = ({
       <div className="space-y-2 max-h-64 overflow-y-auto">
         <AnimatePresence>
           {displayedBrands.map(brand => {
-            const isSelected = selectedBrands.includes(brand.id);
+            const isSelected = selectedBrands?.includes(brand.id) || false;
 
             return (
               <motion.div

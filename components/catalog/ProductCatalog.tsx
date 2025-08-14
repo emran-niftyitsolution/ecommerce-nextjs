@@ -1,6 +1,6 @@
 'use client';
 
-import ProductCard from '@/components/home/ProductCard';
+import ModernProductList from '@/components/catalog/ModernProductList';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import {
@@ -380,28 +380,17 @@ const ProductCatalog = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className={
-              viewMode === 'grid'
-                ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'
-                : 'space-y-4'
-            }
           >
-            {filteredProducts.map(product => (
-              <motion.div
-                key={product.id}
-                variants={itemVariants}
-                className={
-                  viewMode === 'list'
-                    ? 'bg-white rounded-xl shadow-sm border border-gray-200'
-                    : ''
-                }
-              >
-                <ProductCard
-                  product={product}
-                  variant={viewMode === 'list' ? 'list' : 'featured'}
-                />
-              </motion.div>
-            ))}
+            <ModernProductList
+              products={filteredProducts}
+              variant={viewMode === 'list' ? 'full-details' : 'inline-price'}
+              onAddToCart={product => {
+                toast.success(`${product.name} added to cart!`);
+              }}
+              onWishlist={product => {
+                toast.success(`${product.name} added to wishlist!`);
+              }}
+            />
           </motion.div>
         </AnimatePresence>
 

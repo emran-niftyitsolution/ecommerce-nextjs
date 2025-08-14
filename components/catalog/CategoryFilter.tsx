@@ -18,8 +18,8 @@ interface CategoryFilterProps {
 }
 
 const CategoryFilter = ({
-  categories,
-  selectedCategories,
+  categories = [],
+  selectedCategories = [],
   onCategoryChange,
 }: CategoryFilterProps) => {
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
@@ -110,7 +110,7 @@ const CategoryFilter = ({
               className="overflow-hidden"
             >
               <div className="space-y-1 mt-1">
-                {category.children!.map(child =>
+                {category.children?.map(child =>
                   renderCategory(child, level + 1)
                 )}
               </div>
@@ -140,7 +140,7 @@ const CategoryFilter = ({
       </div>
 
       <div className="space-y-1">
-        {categories.map(category => renderCategory(category))}
+        {categories?.map(category => renderCategory(category))}
       </div>
 
       {/* Selected Categories Summary */}
@@ -166,7 +166,7 @@ const CategoryFilter = ({
             </button>
           </div>
           <div className="flex flex-wrap gap-1">
-            {selectedCategories.map(categoryId => {
+            {selectedCategories?.map(categoryId => {
               const category = findCategoryById(categories, categoryId);
               return category ? (
                 <span
@@ -192,7 +192,7 @@ const CategoryFilter = ({
 
 // Helper function to find category by ID in the tree
 const findCategoryById = (
-  categories: Category[],
+  categories: Category[] = [],
   id: string
 ): Category | null => {
   for (const category of categories) {
